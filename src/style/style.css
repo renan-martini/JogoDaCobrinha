@@ -1,0 +1,57 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(36, 35, 35);
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 98vh;
+}
+
+#container{
+    box-sizing: content-box;
+    border: 1px solid rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px auto;
+    width: 1200px;
+    height: 600px;
+}
+
+.quadrado {
+    box-sizing:border-box;
+    width: 24px;
+    height: 24px;
+    border: 1px solid white;
+}
+
+.cobra {
+    background-color: green;
+}
+
+.comida {
+    background-color: orangered;
+}
+
+h1 {
+    display: none;
+    text-align: center;
+    color: #ffff;
+}
+
+button {
+    display: none;
+    margin: 10px auto;
+    height: 40px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+button:hover {
+    transition: 300ms;
+    cursor: pointer;
+    color: black;
+    background-color: rgb(213, 206, 206);
+}
