@@ -134,7 +134,7 @@ function getRandomIntInclusive(min, max) {
 const minhaCobra = new Snake()
 minhaCobra.pintarCobra()
 minhaCobra.andar()
-window.addEventListener("keydown", minhaCobra.mudarDirecao)
+window.addEventListener("keyup", minhaCobra.mudarDirecao)
 minhaCobra.spawnFood()
 
 const playAgain = document.querySelector("button")
