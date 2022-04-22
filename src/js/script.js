@@ -27,6 +27,9 @@ class Snake{
         this.corpo = ["x25-y13", "x26-y13"]
         this.direcao = [1,0]
         this.meuIntervalo
+        this._score
+        this.velocidade = 100
+        this.clickable = true
     }
 
     pintarCobra(){
@@ -74,6 +77,10 @@ class Snake{
 
             if(this.corpo.includes(novaCabeca)){
                 lost = true
+                let record = document.querySelector("#record")
+                if(this._score > parseInt(record.innerText)){
+                    record.innerText = this._score
+                }
                 let lostMessage = document.querySelector("h1")
                 lostMessage.style.display = "block"
                 let playAgain = document.querySelector("button")
@@ -84,29 +91,41 @@ class Snake{
             
             
             this.pintarCobra()
-        }, 100)
+            this.score()
+        }, this.velocidade)
           
     }
 
     mudarDirecao(event){
         if(!lost){
-            if(event.code === "ArrowUp" && minhaCobra.direcao[1] !== 1){
+            
+            if(event.code === "ArrowUp" && minhaCobra.direcao[1] !== 1 && this.clickable === true){
+                clearInterval(minhaCobra.meuIntervalo)
+                this.clickable = false
                 minhaCobra.direcao = [0, -1]
-                clearInterval(minhaCobra.meuIntervalo)
                 minhaCobra.andar()
-            }else if(event.code === "ArrowDown" && minhaCobra.direcao[1] !== -1){
+                
+            }else if(event.code === "ArrowDown" && minhaCobra.direcao[1] !== -1 && this.clickable === true){
+                clearInterval(minhaCobra.meuIntervalo)
+                this.clickable = false
                 minhaCobra.direcao = [0, 1]
-                clearInterval(minhaCobra.meuIntervalo)
                 minhaCobra.andar()
-            }else if(event.code === "ArrowRight" && minhaCobra.direcao[0] !== -1){
+            }else if(event.code === "ArrowRight" && minhaCobra.direcao[0] !== -1 && this.clickable === true){
+                clearInterval(minhaCobra.meuIntervalo)
+                this.clickable = false
                 minhaCobra.direcao = [1, 0]
-                clearInterval(minhaCobra.meuIntervalo)
                 minhaCobra.andar()
-            }else if(event.code === "ArrowLeft" && minhaCobra.direcao[0] !== 1){
-                minhaCobra.direcao = [-1, 0]
+            }else if(event.code === "ArrowLeft" && minhaCobra.direcao[0] !== 1 && this.clickable === true){
                 clearInterval(minhaCobra.meuIntervalo)
+                this.clickable = false
+                minhaCobra.direcao = [-1, 0]
                 minhaCobra.andar()
             }
+
+            
+            setTimeout(() => {
+                this.clickable = true
+            }, 80)
         }
         
     }
@@ -121,6 +140,14 @@ class Snake{
         }
         let comida = document.querySelector(`#x${randX}-y${randY}`)
         comida.classList.add("comida")
+    }
+
+    score(){
+        let score = document.querySelector("#score")
+        let totalScore = this.corpo.length * 100 - 200
+        score.innerText = totalScore
+        this.velocidade = 100 - totalScore/50
+        this._score = totalScore
     }
 
 }
@@ -144,10 +171,13 @@ playAgain.addEventListener("click", () => {
         celula.classList.remove("cobra")
     })
     minhaCobra.corpo = ["x25-y13", "x26-y13"]
-    minhaCobra.direcao = [1,0]
     minhaCobra.pintarCobra()
-    minhaCobra.andar()
     lost = false
+    clearInterval(minhaCobra.meuIntervalo)
+    minhaCobra.clickable = true
+    minhaCobra.velocidade = 100
+    minhaCobra.andar()
+    minhaCobra.direcao = [1, 0]
 
     let lostMessage = document.querySelector("h1")
     let playAgain = document.querySelector("button")
