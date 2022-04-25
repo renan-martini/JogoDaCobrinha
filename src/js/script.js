@@ -80,6 +80,7 @@ class Snake{
                 let record = document.querySelector("#record")
                 if(this._score > parseInt(record.innerText)){
                     record.innerText = this._score
+                    localStorage.setItem("record", this._score)
                 }
                 let lostMessage = document.querySelector("h1")
                 lostMessage.style.display = "block"
@@ -163,6 +164,8 @@ minhaCobra.pintarCobra()
 minhaCobra.andar()
 window.addEventListener("keyup", minhaCobra.mudarDirecao)
 minhaCobra.spawnFood()
+let record = document.querySelector("#record")
+record.innerText = localStorage.getItem("record")
 
 const playAgain = document.querySelector("button")
 playAgain.addEventListener("click", () => {
