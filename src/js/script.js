@@ -165,7 +165,10 @@ minhaCobra.andar()
 window.addEventListener("keyup", minhaCobra.mudarDirecao)
 minhaCobra.spawnFood()
 let record = document.querySelector("#record")
-record.innerText = localStorage.getItem("record")
+if(localStorage.getItem("record")){
+    record.innerText = localStorage.getItem("record")
+}else{record.innerText = 0}
+
 
 const playAgain = document.querySelector("button")
 playAgain.addEventListener("click", () => {
